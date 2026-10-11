@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
+import { Image } from "@/components/ui/image";
+import { BRAND_LOGO } from "@/lib/brand";
 
 const links = [
   { label: "Services", href: "#services" },
@@ -24,7 +26,7 @@ export default function Nav() {
       <div className="h-px w-full bg-gradient-to-r from-primary via-chart-2 to-primary opacity-70" />
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5 font-heading font-bold tracking-tight">
-          <span className="inline-block w-2.5 h-2.5 bg-gradient-to-br from-primary to-chart-2 rounded-sm" />
+          <Image src={BRAND_LOGO} alt="" fittingType="fit" className="w-6 h-6 rounded-sm" />
           <span>CodeLustre</span>
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">

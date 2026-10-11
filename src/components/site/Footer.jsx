@@ -1,3 +1,6 @@
+import { Image } from "@/components/ui/image";
+import { BRAND_LOGO } from "@/lib/brand";
+
 const links = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
@@ -17,7 +20,7 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-12">
           <div className="max-w-sm">
             <a href="#top" className="flex items-center gap-2.5 font-heading font-bold tracking-tight">
-              <span className="inline-block w-2.5 h-2.5 bg-gradient-to-br from-primary to-chart-2 rounded-sm" />
+              <Image src={BRAND_LOGO} alt="" fittingType="fit" className="w-6 h-6 rounded-sm" />
               <span>CodeLustre</span>
             </a>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
