@@ -19,13 +19,13 @@ export default function Hero() {
 
       <div className="relative mx-auto max-w-7xl px-6 py-24 w-full">
         <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-6">
-          [ Web design &amp; app development studio ]
+          [ Web design &amp; app development studio · NSW, Australia ]
         </div>
         <h1 className="font-heading font-bold tracking-tight text-5xl sm:text-6xl lg:text-7xl leading-[1.04] max-w-4xl">
           We design websites and build apps that <span className="bg-gradient-to-r from-primary to-chart-2 bg-clip-text text-transparent">launch brands.</span>
         </h1>
         <p className="mt-8 text-lg text-muted-foreground max-w-xl leading-relaxed">
-          LaunchPad Studio is a digital studio crafting high-performance websites and custom apps for ambitious teams, from first wireframe to launch and beyond.
+          CodeLustre is a digital studio crafting high-performance websites and custom apps for ambitious teams across NSW and Australia, from first wireframe to launch and beyond.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
           <a href="#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-[0_0_45px_-10px_hsl(var(--primary))]">

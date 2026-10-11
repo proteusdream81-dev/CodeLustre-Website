@@ -25,7 +25,7 @@ export default function Nav() {
       <div className="mx-auto max-w-7xl px-6 h-16 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5 font-heading font-bold tracking-tight">
           <span className="inline-block w-2.5 h-2.5 bg-gradient-to-br from-primary to-chart-2 rounded-sm" />
-          <span>LaunchPad Studio</span>
+          <span>CodeLustre</span>
         </a>
         <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
           {links.map((l) => (

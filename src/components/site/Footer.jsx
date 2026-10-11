@@ -18,10 +18,10 @@ export default function Footer() {
           <div className="max-w-sm">
             <a href="#top" className="flex items-center gap-2.5 font-heading font-bold tracking-tight">
               <span className="inline-block w-2.5 h-2.5 bg-gradient-to-br from-primary to-chart-2 rounded-sm" />
-              <span>LaunchPad Studio</span>
+              <span>CodeLustre</span>
             </a>
             <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
-              A digital studio designing websites and building apps for ambitious teams.
+              A digital studio designing websites and building apps for ambitious teams across Australia.
             </p>
           </div>
           <div className="flex flex-col gap-3">
@@ -49,8 +49,8 @@ export default function Footer() {
         </div>
 
         <div className="mt-6 flex flex-col sm:flex-row justify-between gap-3 font-mono text-xs text-muted-foreground">
-          <span>© {year} LaunchPad Studio. All rights reserved.</span>
-          <span>launchpadstudio.com</span>
+          <span>© {year} CodeLustre. All rights reserved.</span>
+          <span>codelustre.com</span>
         </div>
       </div>
     </footer>

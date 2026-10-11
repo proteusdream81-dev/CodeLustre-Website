@@ -13,7 +13,7 @@ export default function About() {
           </div>
           <div>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              LaunchPad Studio helps founders and teams turn ideas into shipped products. We pair design craft with engineering discipline, so every site we design and every app we build is fast, beautiful, and built to last.
+              CodeLustre helps founders and teams across NSW and Australia turn ideas into shipped products. We pair design craft with engineering discipline, so every site we design and every app we build is fast, beautiful, and built to last.
             </p>
             <p className="mt-5 text-muted-foreground leading-relaxed">
               We work as one team across strategy, design, and development, which means fewer handoffs, clearer communication, and a product that actually matches the vision.
