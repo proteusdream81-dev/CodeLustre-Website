@@ -15,8 +15,9 @@ export default function Process() {
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-border rounded-lg overflow-hidden border border-border">
           {steps.map((s) => (
-            <div key={s.n} className="bg-background p-8">
-              <div className="font-mono text-sm text-primary mb-6">{s.n}</div>
+            <div key={s.n} className="group relative bg-background p-8">
+              <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/60 to-chart-2/60 opacity-0 transition-opacity group-hover:opacity-100" />
+              <div className="font-mono text-sm mb-6 bg-gradient-to-br from-primary to-chart-2 bg-clip-text text-transparent">{s.n}</div>
               <h3 className="font-heading text-xl font-semibold tracking-tight">{s.title}</h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
             </div>

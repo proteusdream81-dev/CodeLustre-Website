@@ -77,16 +77,16 @@ export default function Contact() {
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Name</label>
-                <input value={form.name} onChange={update("name")} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-primary transition" placeholder="Your name" />
+                <input value={form.name} onChange={update("name")} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-chart-2 transition" placeholder="Your name" />
               </div>
               <div>
                 <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Email</label>
-                <input type="email" value={form.email} onChange={update("email")} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-primary transition" placeholder="you@company.com" />
+                <input type="email" value={form.email} onChange={update("email")} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-chart-2 transition" placeholder="you@company.com" />
               </div>
             </div>
             <div>
               <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Company <span className="lowercase">(optional)</span></label>
-              <input value={form.company} onChange={update("company")} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-primary transition" placeholder="Company name" />
+              <input value={form.company} onChange={update("company")} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-chart-2 transition" placeholder="Company name" />
             </div>
             <div>
               <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Project type</label>
@@ -105,7 +105,7 @@ export default function Contact() {
             </div>
             <div>
               <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Project details</label>
-              <textarea value={form.message} onChange={update("message")} rows={4} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-primary transition resize-none" placeholder="What are you building, and what does success look like?" />
+              <textarea value={form.message} onChange={update("message")} rows={4} className="mt-2 w-full bg-background border border-border rounded-md px-4 py-3 text-sm focus:outline-none focus:border-chart-2 transition resize-none" placeholder="What are you building, and what does success look like?" />
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
@@ -113,7 +113,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={status === "submitting"}
-              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition disabled:opacity-50"
+              className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition disabled:opacity-50 shadow-[0_0_40px_-12px_hsl(var(--primary))]"
             >
               {status === "submitting" ? "Sending…" : "Send brief"} <ArrowRight className="w-4 h-4" />
             </button>

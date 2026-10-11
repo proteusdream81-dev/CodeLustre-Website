@@ -8,7 +8,7 @@ export default function About() {
           <div>
             <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-4">[ About the studio ]</div>
             <h2 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight leading-tight">
-              Design craft meets engineering rigor.
+              Design craft meets <span className="bg-gradient-to-r from-primary to-chart-2 bg-clip-text text-transparent">engineering rigor.</span>
             </h2>
           </div>
           <div>
@@ -20,7 +20,7 @@ export default function About() {
             </p>
             <div className="mt-10 flex flex-wrap gap-3">
               {values.map((v) => (
-                <span key={v} className="font-mono text-xs uppercase tracking-widest border border-border rounded-full px-4 py-1.5 text-foreground">
+                <span key={v} className="font-mono text-xs uppercase tracking-widest border border-border rounded-full px-4 py-1.5 text-foreground transition-colors hover:border-chart-2/50">
                   {v}
                 </span>
               ))}
