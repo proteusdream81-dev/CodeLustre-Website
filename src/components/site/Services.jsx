@@ -3,16 +3,23 @@ import { Check } from "lucide-react";
 const sites = ["Marketing sites", "E-commerce stores", "Design systems", "Web platforms", "SEO & performance"];
 const apps = ["Web apps", "Mobile apps", "MVP builds", "Internal tools", "APIs & integrations"];
 
-function ServiceCard({ tag, title, desc, items }) {
+const accents = {
+  lime: { card: "hover:border-primary/40", bar: "from-primary/70", tag: "text-primary", check: "text-primary" },
+  blue: { card: "hover:border-chart-2/40", bar: "from-chart-2/70", tag: "text-chart-2", check: "text-chart-2" },
+};
+
+function ServiceCard({ tag, title, desc, items, accent = "lime" }) {
+  const a = accents[accent];
   return (
-    <div className="relative rounded-lg border border-border bg-card p-8 sm:p-10 hover:border-primary/40 transition-colors">
-      <div className="font-mono text-xs uppercase tracking-widest text-primary mb-6">{tag}</div>
+    <div className={`relative overflow-hidden rounded-lg border border-border bg-card p-8 sm:p-10 transition-colors ${a.card}`}>
+      <div className={`absolute inset-x-0 top-0 h-px bg-gradient-to-r ${a.bar} via-transparent to-transparent`} />
+      <div className={`font-mono text-xs uppercase tracking-widest mb-6 ${a.tag}`}>{tag}</div>
       <h3 className="font-heading text-2xl sm:text-3xl font-bold tracking-tight">{title}</h3>
       <p className="mt-4 text-muted-foreground leading-relaxed">{desc}</p>
       <ul className="mt-8 space-y-3">
         {items.map((item) => (
           <li key={item} className="flex items-center gap-3 text-sm">
-            <Check className="w-4 h-4 text-primary shrink-0" />
+            <Check className={`w-4 h-4 shrink-0 ${a.check}`} />
             <span>{item}</span>
           </li>
         ))}
@@ -44,6 +51,7 @@ export default function Services() {
             title="Apps that scale"
             desc="Web and mobile apps, MVPs, and internal tools engineered on a modern, maintainable stack."
             items={apps}
+            accent="blue"
           />
         </div>
       </div>
