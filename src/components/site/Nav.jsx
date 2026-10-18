@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import { BRAND_LOGO } from "@/lib/brand";
+import { useAuth } from "@/lib/AuthContext";
 
 const links = [
   { label: "Services", href: "#services" },
@@ -12,6 +13,7 @@ const links = [
 ];
 
 export default function Nav() {
+  const { isAuthenticated, navigateToLogin } = useAuth();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -34,9 +36,19 @@ export default function Nav() {
             <a key={l.href} href={l.href} className="hover:text-foreground transition-colors">{l.label}</a>
           ))}
         </nav>
-        <a href="#contact" className="hidden md:inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition shadow-[0_0_28px_-10px_hsl(var(--primary))]">
-          Start a project <ArrowRight className="w-4 h-4" />
-        </a>
+        <div className="hidden md:flex items-center gap-6">
+          {!isAuthenticated && (
+            <button
+              onClick={() => navigateToLogin()}
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Sign in
+            </button>
+          )}
+          <a href="#contact" className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition shadow-[0_0_28px_-10px_hsl(var(--primary))]">
+            Start a project <ArrowRight className="w-4 h-4" />
+          </a>
+        </div>
         <button className="md:hidden text-foreground" onClick={() => setOpen(!open)} aria-label="Toggle menu">
           {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>
@@ -48,6 +60,14 @@ export default function Nav() {
               <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-sm text-muted-foreground hover:text-foreground">{l.label}</a>
             ))}
             <a href="#contact" onClick={() => setOpen(false)} className="text-sm font-medium px-4 py-2.5 rounded-md bg-primary text-primary-foreground text-center">Start a project</a>
+            {!isAuthenticated && (
+              <button
+                onClick={() => { setOpen(false); navigateToLogin(); }}
+                className="text-sm text-muted-foreground hover:text-foreground text-center"
+              >
+                Sign in
+              </button>
+            )}
           </div>
         </div>
       )}
