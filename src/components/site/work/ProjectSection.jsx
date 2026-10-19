@@ -13,7 +13,6 @@ export default function ProjectSection({
   title,
   description,
   facts = [],
-  highlight,
   actions,
   visual,
   reverse = false,
@@ -41,8 +40,6 @@ export default function ProjectSection({
                   {status}
                 </span>
               </div>
-
-              {highlight && <div className="mt-6">{highlight}</div>}
 
               <h2 className="mt-6 font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight">{title}</h2>
               <p className="mt-5 text-muted-foreground leading-relaxed">{description}</p>

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight, Bell } from "lucide-react";
+import { ArrowRight, Bell, Facebook } from "lucide-react";
 import ProjectSection from "@/components/site/work/ProjectSection";
 import GreyhoundVisual from "@/components/site/work/GreyhoundVisual";
-import LindenVisual from "@/components/site/work/LindenVisual";
 import ShelfLifeVisual from "@/components/site/work/ShelfLifeVisual";
+import LindenVisual from "@/components/site/work/LindenVisual";
 
 const primaryButton =
   "inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-[0_0_45px_-10px_hsl(var(--primary))]";
@@ -38,20 +38,51 @@ export default function Work() {
           "Full adoption and enquiry workflow",
         ]}
         actions={
-          <a
-            href="https://greyhoundrehoming.com.au"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={primaryButton}
-          >
-            Visit the live site <ArrowUpRight className="w-4 h-4" />
-          </a>
+          <>
+            <a
+              href="https://greyhoundrehoming.com.au"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={primaryButton}
+            >
+              Visit the live site <ArrowRight className="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.facebook.com/GreyhoundRehomingNSW/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={ghostButton}
+            >
+              Follow on Facebook <Facebook className="w-4 h-4" />
+            </a>
+          </>
         }
         visual={<GreyhoundVisual />}
       />
 
       <ProjectSection
         number="02"
+        status="Coming soon"
+        statusTone="primary"
+        eyebrow="Our next launch"
+        title="ShelfLife"
+        description="The social shelf for book lovers: track your TBR, share shelves with friends, follow release calendars and import your whole library in minutes. Built by Code Lustre, launching soon on Google Play."
+        actions={
+          <>
+            <Link to="/contact?waitlist=ShelfLife" className={primaryButton}>
+              Join the waitlist <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link to="/contact?waitlist=ShelfLife%20launch%20updates" className={ghostButton}>
+              Follow the launch <Bell className="w-4 h-4" />
+            </Link>
+          </>
+        }
+        visual={<ShelfLifeVisual />}
+        reverse
+      />
+
+      <ProjectSection
+        number="03"
         status="In development"
         eyebrow="Product build"
         title="Linden"
@@ -67,32 +98,6 @@ export default function Work() {
           </Link>
         }
         visual={<LindenVisual />}
-        reverse
-      />
-
-      <ProjectSection
-        number="03"
-        status="Coming soon"
-        statusTone="primary"
-        eyebrow="Our next launch"
-        title="ShelfLife"
-        description="The social shelf for book lovers: track your TBR, share shelves with friends, follow release calendars and import your whole library in minutes. Built by Code Lustre, launching soon on Google Play."
-        highlight={
-          <span className="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-1.5 font-mono text-xs uppercase tracking-[0.2em] text-primary-foreground shadow-[0_0_40px_-12px_hsl(var(--primary))]">
-            Coming soon
-          </span>
-        }
-        actions={
-          <>
-            <Link to="/contact?waitlist=ShelfLife" className={primaryButton}>
-              Join the waitlist <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link to="/contact?waitlist=ShelfLife%20launch%20updates" className={ghostButton}>
-              Follow the launch <Bell className="w-4 h-4" />
-            </Link>
-          </>
-        }
-        visual={<ShelfLifeVisual />}
       />
     </>
   );
