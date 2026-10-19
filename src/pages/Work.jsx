@@ -78,7 +78,6 @@ export default function Work() {
           </>
         }
         visual={<ShelfLifeVisual />}
-        reverse
       />
 
       <ProjectSection

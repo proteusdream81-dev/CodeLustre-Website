@@ -15,7 +15,6 @@ export default function ProjectSection({
   facts = [],
   actions,
   visual,
-  reverse = false,
 }) {
   const tone = tones[statusTone];
 
@@ -23,7 +22,7 @@ export default function ProjectSection({
     <section className="border-t border-border">
       <div className="mx-auto max-w-7xl px-6 py-24 sm:py-36">
         <div className="grid lg:grid-cols-2 gap-14 lg:gap-20 items-center">
-          <div className={`relative ${reverse ? "lg:order-2" : ""}`}>
+          <div className="relative">
             <span
               aria-hidden="true"
               className="pointer-events-none select-none absolute -top-12 -left-2 sm:-top-20 sm:-left-6 font-heading font-bold leading-none text-transparent text-[6rem] sm:text-[10rem]"
@@ -59,7 +58,7 @@ export default function ProjectSection({
             </div>
           </div>
 
-          <div className={reverse ? "lg:order-1" : ""}>{visual}</div>
+          <div>{visual}</div>
         </div>
       </div>
     </section>
