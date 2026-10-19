@@ -9,7 +9,14 @@ const types = [
 ];
 
 export default function Contact() {
-  const [form, setForm] = useState({ name: "", email: "", company: "", project_type: "both", message: "" });
+  const product = new URLSearchParams(window.location.search).get("product");
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    company: "",
+    project_type: "both",
+    message: product ? `I'd like to order the ${product}.` : "",
+  });
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
 
@@ -49,7 +56,7 @@ export default function Contact() {
           <h2 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight">Thanks, we&apos;ll be in touch.</h2>
           <p className="mt-4 text-muted-foreground">Your project brief is in. We&apos;ll reply within one business day.</p>
           <button
-            onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", project_type: "both", message: "" }); }}
+            onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", project_type: "both", message: product ? `I'd like to order the ${product}.` : "" }); }}
             className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
           >
             Send another brief <ArrowRight className="w-4 h-4" />
@@ -74,6 +81,11 @@ export default function Contact() {
           </div>
 
           <form onSubmit={submit} className="space-y-6">
+            {product && (
+              <div className="inline-block font-mono text-xs uppercase tracking-widest text-primary border border-primary/30 rounded-full px-3 py-1">
+                Shop enquiry · {product}
+              </div>
+            )}
             <div className="grid sm:grid-cols-2 gap-5">
               <div>
                 <label className="font-mono text-xs uppercase tracking-widest text-muted-foreground">Name</label>

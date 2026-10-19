@@ -1,10 +1,11 @@
+import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 
 const capabilities = ["Strategy", "UI / UX", "Web", "Mobile", "Brand", "DevOps"];
 
 export default function Hero() {
   return (
-    <section id="top" className="relative min-h-screen flex items-center pt-16 overflow-hidden">
+    <section id="top" className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden">
       <div
         className="absolute inset-0 opacity-[0.18] pointer-events-none"
         style={{
@@ -28,12 +29,12 @@ export default function Hero() {
           CodeLustre is a digital studio crafting high-performance websites and custom apps for ambitious teams across NSW and Australia, from first wireframe to launch and beyond.
         </p>
         <div className="mt-10 flex flex-col sm:flex-row gap-4">
-          <a href="#contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-[0_0_45px_-10px_hsl(var(--primary))]">
+          <Link to="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-[0_0_45px_-10px_hsl(var(--primary))]">
             Start a project <ArrowRight className="w-4 h-4" />
-          </a>
-          <a href="#work" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md border border-border text-foreground font-medium hover:border-chart-2/60 hover:text-chart-2 transition">
+          </Link>
+          <Link to="/work" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md border border-border text-foreground font-medium hover:border-chart-2/60 hover:text-chart-2 transition">
             See our work <ArrowUpRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
 
         <div className="mt-20 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-xs uppercase tracking-widest text-muted-foreground">

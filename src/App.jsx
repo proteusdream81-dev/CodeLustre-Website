@@ -7,14 +7,23 @@ import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
 import ScrollToTop from './components/ScrollToTop';
 // Add page imports here
+import SiteLayout from '@/components/site/SiteLayout';
 import Home from './pages/Home';
+import Services from './pages/Services';
+import Work from './pages/Work';
+import Shop from './pages/Shop';
+import About from './pages/About';
+import Contact from './pages/Contact';
+
+// Marketing pages anyone can view without signing in
+const PUBLIC_PATHS = ['/', '/services', '/work', '/shop', '/about', '/contact'];
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
   const { pathname } = useLocation();
   // The marketing site at "/" is public. Every other route belongs to the
   // signed-in app area and keeps the login gate below.
-  const isPublicPage = pathname === '/';
+  const isPublicPage = PUBLIC_PATHS.includes(pathname);
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
@@ -41,7 +50,14 @@ const AuthenticatedApp = () => {
   return (
     <Routes>
       {/* Public marketing site — viewable without signing in */}
-      <Route path="/" element={<Home />} />
+      <Route element={<SiteLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+      </Route>
       {/* Signed-in app area: wrap any workspace route (projects, clients,
           dashboards) in <ProtectedRoute> from @/components/ProtectedRoute. */}
       <Route path="*" element={<PageNotFound />} />
