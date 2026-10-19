@@ -9,13 +9,21 @@ const types = [
 ];
 
 export default function Contact() {
-  const product = new URLSearchParams(window.location.search).get("product");
+  const params = new URLSearchParams(window.location.search);
+  const product = params.get("product");
+  const waitlist = params.get("waitlist");
+  const enquiry = product || waitlist;
+  const defaultMessage = product
+    ? `I'd like to order the ${product}.`
+    : waitlist
+      ? `Add me to the ${waitlist} waitlist.`
+      : "";
   const [form, setForm] = useState({
     name: "",
     email: "",
     company: "",
     project_type: "both",
-    message: product ? `I'd like to order the ${product}.` : "",
+    message: defaultMessage,
   });
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
@@ -56,7 +64,7 @@ export default function Contact() {
           <h2 className="font-heading text-3xl sm:text-4xl font-bold tracking-tight">Thanks, we&apos;ll be in touch.</h2>
           <p className="mt-4 text-muted-foreground">Your project brief is in. We&apos;ll reply within one business day.</p>
           <button
-            onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", project_type: "both", message: product ? `I'd like to order the ${product}.` : "" }); }}
+            onClick={() => { setStatus("idle"); setForm({ name: "", email: "", company: "", project_type: "both", message: defaultMessage }); }}
             className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
           >
             Send another brief <ArrowRight className="w-4 h-4" />
@@ -81,9 +89,9 @@ export default function Contact() {
           </div>
 
           <form onSubmit={submit} className="space-y-6">
-            {product && (
+            {enquiry && (
               <div className="inline-block font-mono text-xs uppercase tracking-widest text-primary border border-primary/30 rounded-full px-3 py-1">
-                Shop enquiry · {product}
+                {product ? "Shop enquiry" : "Waitlist"} · {enquiry}
               </div>
             )}
             <div className="grid sm:grid-cols-2 gap-5">
