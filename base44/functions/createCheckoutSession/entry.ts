@@ -3,21 +3,20 @@ import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
 
 const STRIPE_API = "https://api.stripe.com/v1/checkout/sessions";
 
-function resolveOrigin(req, requested) {
-  const headerOrigin = req.headers.get("X-Base44-App-Url");
-  if (headerOrigin) return headerOrigin.replace(/\/$/, "");
-  if (typeof requested === "string" && /^https:\/\/[a-z0-9.-]+(:\d+)?$/i.test(requested)) {
-    return requested.replace(/\/$/, "");
-  }
-  return "";
-}
-
 export default async function (req) {
   try {
-    const stripeKey = secrets.get("STRIPE_SECRET_KEY") || process.env.STRIPE_SECRET_KEY;
+    const stripeKey = secrets.get("STRIPE_SECRET_KEY");
     if (!stripeKey) {
+      console.log("createCheckoutSession: STRIPE_SECRET_KEY is not set");
       return Response.json({ error: "Payments are not configured yet." }, { status: 500 });
     }
+
+    const appOrigin = req.headers.get("X-Base44-App-Url");
+    if (!appOrigin) {
+      console.log("createCheckoutSession: missing X-Base44-App-Url header");
+      return Response.json({ error: "Checkout is unavailable from this address." }, { status: 400 });
+    }
+    const origin = appOrigin.replace(/\/$/, "");
 
     const body = await req.json().catch(() => ({}));
     const requested = Array.isArray(body.items) ? body.items.slice(0, 20) : [];
@@ -56,22 +55,19 @@ export default async function (req) {
       return Response.json({ error: "Those products are no longer available." }, { status: 400 });
     }
 
-    const origin = resolveOrigin(req, body.origin);
-    if (!origin) {
-      return Response.json({ error: "Missing site origin." }, { status: 400 });
-    }
+    const email = typeof body.email === "string" ? body.email.trim().slice(0, 200) : "";
 
-    const buildParams = (withPaypal) => {
+    // Payment methods are managed on the Stripe account, not per session: Stripe removed
+    // the payment_method_types parameter. Card is on by default, and any method enabled in
+    // the Stripe dashboard (e.g. PayPal, where the account country supports it) appears at checkout.
+    const buildParams = () => {
       const params = new URLSearchParams();
       params.append("mode", "payment");
-      params.append("payment_method_types[]", "card");
-      if (withPaypal) params.append("payment_method_types[]", "paypal");
       params.append("success_url", `${origin}/order/success?session_id={CHECKOUT_SESSION_ID}`);
       params.append("cancel_url", `${origin}/checkout?canceled=1`);
       params.append("shipping_address_collection[allowed_countries][0]", "AU");
       params.append("billing_address_collection", "auto");
-
-      const email = typeof body.email === "string" ? body.email.trim().slice(0, 200) : "";
+      params.append("metadata[base44_app_id]", secrets.get("BASE44_APP_ID") || "");
       if (email) params.append("customer_email", email);
 
       lines.forEach((line, index) => {
@@ -101,24 +97,20 @@ export default async function (req) {
         body: params.toString(),
         signal: AbortSignal.timeout(15000),
       });
-      return { ok: response.ok, status: response.status, payload: await response.json() };
+      const payload = await response.json();
+      if (!response.ok) {
+        console.log("createCheckoutSession: Stripe error", response.status, JSON.stringify(payload?.error || {}));
+      }
+      return { ok: response.ok, payload };
     };
 
-    let paypalEnabled = true;
-    let attempt = await createSession(buildParams(true));
+    const attempt = await createSession(buildParams());
 
     if (!attempt.ok) {
-      const message = String(attempt.payload?.error?.message || "").toLowerCase();
-      if (message.includes("paypal")) {
-        paypalEnabled = false;
-        attempt = await createSession(buildParams(false));
-      }
-    }
-
-    if (!attempt.ok) {
-      const message = attempt.payload?.error?.message || "Stripe could not start the payment.";
-      console.log("Stripe checkout failed", attempt.status, message);
-      return Response.json({ error: message }, { status: 502 });
+      return Response.json(
+        { error: attempt.payload?.error?.message || "Stripe could not start the payment." },
+        { status: 502 }
+      );
     }
 
     const session = attempt.payload;
@@ -127,12 +119,13 @@ export default async function (req) {
       status: "pending",
       currency: session.currency || "aud",
       amount_total: session.amount_total ?? 0,
-      customer_email: typeof body.email === "string" ? body.email.trim() : "",
+      customer_email: email,
       items: orderItems,
     });
 
-    return Response.json({ url: session.url, id: session.id, paypal_enabled: paypalEnabled });
+    return Response.json({ url: session.url, id: session.id });
   } catch (error) {
+    console.log("createCheckoutSession failed", error.message);
     return Response.json({ error: error.message }, { status: 500 });
   }
 }

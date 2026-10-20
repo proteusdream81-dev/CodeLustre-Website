@@ -18,19 +18,35 @@ export default function Checkout() {
     event.preventDefault();
     setStatus("redirecting");
     setError("");
+
+    // Stripe Checkout must be a top-level page. In the builder preview the app runs
+    // inside an iframe, so open the tab now — while the click still counts — and
+    // send it to the session URL once Stripe has created one.
+    const isFramed = window.self !== window.top;
+    const checkoutTab = isFramed ? window.open("", "_blank") : null;
+    if (isFramed && !checkoutTab) {
+      setError("Allow popups to continue to checkout.");
+      setStatus("idle");
+      return;
+    }
+    if (checkoutTab) checkoutTab.opener = null;
+
     try {
       const response = await base44.functions.invoke("createCheckoutSession", {
         items: items.map((item) => ({ product_id: item.product_id, quantity: item.quantity })),
         email: email.trim() || undefined,
-        origin: window.location.origin,
       });
-      if (response.data?.url) {
-        window.location.href = response.data.url;
+      const url = response.data?.url;
+      if (!url) {
+        checkoutTab?.close();
+        setError(response.data?.error || "We couldn't start checkout. Please try again.");
+        setStatus("idle");
         return;
       }
-      setError(response.data?.error || "We couldn't start checkout. Please try again.");
-      setStatus("idle");
+      if (checkoutTab) checkoutTab.location.replace(url);
+      else window.location.assign(url);
     } catch (err) {
+      checkoutTab?.close();
       setError(err?.response?.data?.error || "We couldn't start checkout. Please try again.");
       setStatus("idle");
     }
@@ -66,7 +82,7 @@ export default function Checkout() {
               <div className="flex items-start gap-3">
                 <Lock className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
                 <p className="text-sm leading-relaxed text-muted-foreground">
-                  You&apos;ll pay on Stripe&apos;s secure checkout by card or PayPal, and add your delivery address there. We never see your card details.
+                  You&apos;ll pay on Stripe&apos;s secure checkout and add your delivery address there. Stripe shows every payment method available on our account, and we never see your card details.
                 </p>
               </div>
             </div>
@@ -82,7 +98,7 @@ export default function Checkout() {
               {status !== "redirecting" && <ArrowRight className="w-4 h-4" />}
             </button>
             <p className="mt-4 text-center font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-              Card · PayPal · AUD
+              Secure Stripe checkout · AUD
             </p>
           </form>
 
