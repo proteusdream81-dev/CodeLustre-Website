@@ -4,7 +4,6 @@ import { Menu, X, ArrowRight, ShoppingCart } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import { BRAND_LOGO } from "@/lib/brand";
 import { useCart } from "@/components/shop/CartProvider";
-import { useAuth } from "@/lib/AuthContext";
 
 const links = [
   { label: "Home", to: "/" },
@@ -16,7 +15,6 @@ const links = [
 ];
 
 export default function Nav() {
-  const { isAuthenticated, navigateToLogin } = useAuth();
   const { count } = useCart();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
@@ -66,14 +64,6 @@ export default function Nav() {
               </span>
             )}
           </Link>
-          {!isAuthenticated && (
-            <button
-              onClick={() => navigateToLogin()}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Sign in
-            </button>
-          )}
           <Link to="/contact" className="inline-flex items-center gap-1.5 text-sm font-medium px-4 py-2 rounded-md bg-primary text-primary-foreground hover:opacity-90 transition shadow-[0_0_28px_-10px_hsl(var(--primary))]">
             Start a project <ArrowRight className="w-4 h-4" />
           </Link>
@@ -104,14 +94,6 @@ export default function Nav() {
               <ShoppingCart className="w-4 h-4" /> Cart{count > 0 ? ` (${count})` : ""}
             </Link>
             <Link to="/contact" className="text-sm font-medium px-4 py-2.5 rounded-md bg-primary text-primary-foreground text-center">Start a project</Link>
-            {!isAuthenticated && (
-              <button
-                onClick={() => navigateToLogin()}
-                className="text-sm text-muted-foreground hover:text-foreground text-center"
-              >
-                Sign in
-              </button>
-            )}
           </div>
         </div>
       )}

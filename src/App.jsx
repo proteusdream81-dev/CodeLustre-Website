@@ -16,11 +16,10 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Cart from './pages/Cart';
 import Checkout from './pages/Checkout';
-import CheckoutPayment from './pages/CheckoutPayment';
 import OrderSuccess from './pages/OrderSuccess';
 
 // Marketing pages anyone can view without signing in
-const PUBLIC_PATHS = ['/', '/services', '/work', '/shop', '/about', '/contact', '/cart', '/checkout', '/checkout/cart', '/order/success'];
+const PUBLIC_PATHS = ['/', '/services', '/work', '/shop', '/about', '/contact', '/cart', '/checkout/cart', '/order/success'];
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -62,7 +61,6 @@ const AuthenticatedApp = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/checkout" element={<CheckoutPayment />} />
         <Route path="/checkout/cart" element={<Checkout />} />
         <Route path="/order/success" element={<OrderSuccess />} />
       </Route>
