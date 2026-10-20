@@ -2,8 +2,17 @@
   "name": "Order",
   "type": "object",
   "properties": {
+    "provider": {
+      "type": "string",
+      "enum": [
+        "stripe",
+        "paypal"
+      ],
+      "default": "stripe"
+    },
     "stripe_session_id": {
-      "type": "string"
+      "type": "string",
+      "description": "Provider reference: Stripe checkout session id, or PayPal order id for PayPal payments."
     },
     "status": {
       "type": "string",

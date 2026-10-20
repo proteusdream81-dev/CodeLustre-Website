@@ -6,7 +6,9 @@ import { useCart } from "@/components/shop/CartProvider";
 import { formatAUD } from "@/lib/shop";
 
 export default function OrderSuccess() {
-  const sessionId = new URLSearchParams(window.location.search).get("session_id");
+  const params = new URLSearchParams(window.location.search);
+  const isPaypal = params.get("provider") === "paypal";
+  const sessionId = isPaypal ? params.get("order_id") : params.get("session_id");
   const { clear } = useCart();
   const [order, setOrder] = useState(null);
   const [state, setState] = useState("loading");
@@ -18,7 +20,7 @@ export default function OrderSuccess() {
       return;
     }
     base44.functions
-      .invoke("getOrderSession", { session_id: sessionId })
+      .invoke(isPaypal ? "getPaypalOrder" : "getOrderSession", isPaypal ? { order_id: sessionId } : { session_id: sessionId })
       .then(({ data }) => {
         setOrder(data);
         setState(data?.paid ? "paid" : "pending");
@@ -40,7 +42,7 @@ export default function OrderSuccess() {
           </h2>
           <p className="mt-3 text-sm text-muted-foreground">
             {state === "pending"
-              ? "Stripe is still finalising this payment. Refresh in a moment if it hasn't updated."
+              ? "The payment is still being finalised. Refresh in a moment if it hasn't updated."
               : "One moment while we pull the details."}
           </p>
         </div>
