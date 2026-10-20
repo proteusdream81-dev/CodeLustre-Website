@@ -14,9 +14,12 @@ import Work from './pages/Work';
 import Shop from './pages/Shop';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Cart from './pages/Cart';
+import Checkout from './pages/Checkout';
+import OrderSuccess from './pages/OrderSuccess';
 
 // Marketing pages anyone can view without signing in
-const PUBLIC_PATHS = ['/', '/services', '/work', '/shop', '/about', '/contact'];
+const PUBLIC_PATHS = ['/', '/services', '/work', '/shop', '/about', '/contact', '/cart', '/checkout', '/order/success'];
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -57,6 +60,9 @@ const AuthenticatedApp = () => {
         <Route path="/shop" element={<Shop />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
+        <Route path="/order/success" element={<OrderSuccess />} />
       </Route>
       {/* Signed-in app area: wrap any workspace route (projects, clients,
           dashboards) in <ProtectedRoute> from @/components/ProtectedRoute. */}

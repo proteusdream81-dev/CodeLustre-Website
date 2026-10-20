@@ -1,7 +1,8 @@
+import { useEffect, useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import ShopProduct from "@/components/site/ShopProduct";
-import { products } from "@/lib/shop";
+import { base44 } from "@/api/base44Client";
 
 const included = [
   "Verified install media",
@@ -11,6 +12,15 @@ const included = [
 ];
 
 export default function Shop() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    base44.entities.Product.filter({ active: true }, { sort: "sort_order", limit: 50 })
+      .then(({ items }) => setProducts(items))
+      .finally(() => setLoading(false));
+  }, []);
+
   return (
     <>
       <section className="border-t border-border">
@@ -23,11 +33,23 @@ export default function Shop() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map((product) => (
-              <ShopProduct key={product.id} product={product} />
-            ))}
-          </div>
+          {loading ? (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[0, 1, 2].map((key) => (
+                <div key={key} className="h-96 rounded-lg border border-border bg-card/60 animate-pulse" />
+              ))}
+            </div>
+          ) : products.length === 0 ? (
+            <div className="rounded-lg border border-border bg-card/40 px-6 py-16 text-center">
+              <p className="text-sm text-muted-foreground">New stock is being prepared. Check back shortly.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {products.map((product) => (
+                <ShopProduct key={product.id} product={product} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

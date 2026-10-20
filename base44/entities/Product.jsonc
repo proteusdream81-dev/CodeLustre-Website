@@ -1,0 +1,68 @@
+{
+  "name": "Product",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "short_description": {
+      "type": "string"
+    },
+    "tag": {
+      "type": "string"
+    },
+    "badge": {
+      "type": "string"
+    },
+    "image_url": {
+      "type": "string"
+    },
+    "price_cents": {
+      "type": "number",
+      "description": "Price in AUD cents, e.g. 5900 for $59.00"
+    },
+    "specs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "boot-drive",
+        "accessory"
+      ],
+      "default": "boot-drive"
+    },
+    "active": {
+      "type": "boolean",
+      "default": true
+    },
+    "sort_order": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "name",
+    "price_cents"
+  ],
+  "rls": {
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "read": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

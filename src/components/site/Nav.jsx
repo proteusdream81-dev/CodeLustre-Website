@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Menu, X, ArrowRight } from "lucide-react";
+import { Menu, X, ArrowRight, ShoppingCart } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import { BRAND_LOGO } from "@/lib/brand";
+import { useCart } from "@/components/shop/CartProvider";
 import { useAuth } from "@/lib/AuthContext";
 
 const links = [
@@ -16,6 +17,7 @@ const links = [
 
 export default function Nav() {
   const { isAuthenticated, navigateToLogin } = useAuth();
+  const { count } = useCart();
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -56,6 +58,14 @@ export default function Nav() {
           ))}
         </nav>
         <div className="hidden md:flex items-center gap-6">
+          <Link to="/cart" aria-label="Cart" className="relative text-muted-foreground hover:text-foreground transition-colors">
+            <ShoppingCart className="w-5 h-5" />
+            {count > 0 && (
+              <span className="absolute -top-2 -right-2 min-w-[18px] h-[18px] px-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold flex items-center justify-center">
+                {count}
+              </span>
+            )}
+          </Link>
           {!isAuthenticated && (
             <button
               onClick={() => navigateToLogin()}
@@ -90,6 +100,9 @@ export default function Nav() {
                 )}
               </NavLink>
             ))}
+            <Link to="/cart" className="flex items-center justify-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+              <ShoppingCart className="w-4 h-4" /> Cart{count > 0 ? ` (${count})` : ""}
+            </Link>
             <Link to="/contact" className="text-sm font-medium px-4 py-2.5 rounded-md bg-primary text-primary-foreground text-center">Start a project</Link>
             {!isAuthenticated && (
               <button
