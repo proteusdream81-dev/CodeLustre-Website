@@ -12,12 +12,19 @@ const included = [
 ];
 
 export default function Shop() {
-  const [products, setProducts] = useState([]);
+  const [bootDrives, setBootDrives] = useState([]);
+  const [accessories, setAccessories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    base44.entities.Product.filter({ active: true }, { sort: "sort_order", limit: 50 })
-      .then(({ items }) => setProducts(items))
+    Promise.all([
+      base44.entities.Product.filter({ active: true, category: "boot-drive" }, { sort: "sort_order", limit: 50 }),
+      base44.entities.Product.filter({ active: true, category: "accessory" }, { sort: "sort_order", limit: 50 }),
+    ])
+      .then(([drives, extras]) => {
+        setBootDrives(drives.items);
+        setAccessories(extras.items);
+      })
       .finally(() => setLoading(false));
   }, []);
 
@@ -39,19 +46,47 @@ export default function Shop() {
                 <div key={key} className="h-96 rounded-lg border border-border bg-card/60 animate-pulse" />
               ))}
             </div>
-          ) : products.length === 0 ? (
+          ) : bootDrives.length === 0 ? (
             <div className="rounded-lg border border-border bg-card/40 px-6 py-16 text-center">
               <p className="text-sm text-muted-foreground">New stock is being prepared. Check back shortly.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {products.map((product) => (
+              {bootDrives.map((product) => (
                 <ShopProduct key={product.id} product={product} />
               ))}
             </div>
           )}
         </div>
       </section>
+
+      {(loading || accessories.length > 0) && (
+        <section className="border-t border-border">
+          <div className="mx-auto max-w-7xl px-6 py-24">
+            <div className="max-w-2xl mb-16">
+              <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-4">[ Tech accessories ]</div>
+              <h2 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight">Tech accessories.</h2>
+              <p className="mt-5 text-muted-foreground leading-relaxed">
+                The hubs, docks and cables that finish the build — tested on the same benches as our drives, ready to add to the same order.
+              </p>
+            </div>
+
+            {loading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[0, 1, 2].map((key) => (
+                  <div key={key} className="h-96 rounded-lg border border-border bg-card/60 animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {accessories.map((product) => (
+                  <ShopProduct key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
 
       <section className="border-t border-border bg-card/30">
         <div className="mx-auto max-w-7xl px-6 py-24">
