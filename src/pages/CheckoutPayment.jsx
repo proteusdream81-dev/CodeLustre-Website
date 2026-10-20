@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { CreditCard, Lock, ShieldCheck, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { base44 } from "@/api/base44Client";
 import StripePaymentForm from "@/components/shop/StripePaymentForm";
 import PaypalPaymentForm from "@/components/shop/PaypalPaymentForm";
 
@@ -12,6 +13,18 @@ const METHODS = [
 
 export default function CheckoutPayment() {
   const [method, setMethod] = useState("card");
+  const [paypalReady, setPaypalReady] = useState(false);
+
+  // PayPal only appears once its keys are in place, so card checkout goes live on its own.
+  useEffect(() => {
+    base44.functions
+      .invoke("getPaypalClientId", {})
+      .then(({ data }) => setPaypalReady(Boolean(data?.configured)))
+      .catch(() => setPaypalReady(false));
+  }, []);
+
+  const methods = paypalReady ? METHODS : METHODS.filter((entry) => entry.id === "card");
+  const activeMethod = method === "paypal" && paypalReady ? "paypal" : "card";
 
   return (
     <section className="border-t border-border">
@@ -19,8 +32,9 @@ export default function CheckoutPayment() {
         <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-4">[ Secure checkout ]</div>
         <h1 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight">Pay your way.</h1>
         <p className="mt-4 max-w-xl text-muted-foreground leading-relaxed">
-          A fixed test payment of A$49.00. Pay by card or with your PayPal account — both in AUD, and your payment
-          details never touch our servers.
+          {paypalReady
+            ? "A fixed test payment of A$49.00. Pay by card or with your PayPal account — both in AUD, and your payment details never touch our servers."
+            : "A fixed test payment of A$49.00, paid by card in AUD. Your card details go into the secure form below and never touch our servers."}
         </p>
 
         <div className="mt-10 rounded-lg border border-border bg-card">
@@ -34,8 +48,8 @@ export default function CheckoutPayment() {
             </span>
           </div>
 
-          <div className="grid gap-2 border-b border-border p-4 sm:grid-cols-2">
-            {METHODS.map(({ id, label, detail, icon: Icon }) => {
+          <div className={cn("grid gap-2 border-b border-border p-4", methods.length > 1 && "sm:grid-cols-2")}>
+            {methods.map(({ id, label, detail, icon: Icon }) => {
               const selected = method === id;
               return (
                 <button
@@ -62,12 +76,13 @@ export default function CheckoutPayment() {
             })}
           </div>
 
-          {method === "card" ? <StripePaymentForm /> : <PaypalPaymentForm />}
+          {activeMethod === "card" ? <StripePaymentForm /> : <PaypalPaymentForm />}
         </div>
 
         <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <p className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-muted-foreground">
-            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> Stripe &amp; PayPal · AUD · test card 4242 4242 4242 4242
+            <ShieldCheck className="h-3.5 w-3.5 text-primary" /> {paypalReady ? "Stripe & PayPal" : "Stripe"} · AUD · test
+            card 4242 4242 4242 4242
           </p>
           <Link to="/shop" className="text-sm text-muted-foreground transition-colors hover:text-foreground">
             Back to the shop
