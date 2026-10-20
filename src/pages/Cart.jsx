@@ -103,7 +103,7 @@ export default function Cart() {
             </div>
 
             <Link
-              to="/checkout"
+              to="/checkout/cart"
               className="mt-6 inline-flex w-full items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-[0_0_45px_-10px_hsl(var(--primary))]"
             >
               Checkout <ArrowRight className="w-4 h-4" />
