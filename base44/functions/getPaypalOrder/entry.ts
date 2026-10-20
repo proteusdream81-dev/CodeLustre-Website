@@ -1,4 +1,5 @@
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
+import { serverError } from "../../shared/apiError.ts";
 
 const ORDER_ID = /^[A-Za-z0-9-]{6,64}$/;
 
@@ -31,7 +32,6 @@ export default async function (req) {
       reference: orderId,
     });
   } catch (error) {
-    console.log("getPaypalOrder failed", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("getPaypalOrder", error);
   }
 }

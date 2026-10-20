@@ -1,4 +1,5 @@
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
+import { serverError } from "../../shared/apiError.ts";
 import {
   PAYPAL_AMOUNT,
   PAYPAL_CURRENCY,
@@ -73,7 +74,6 @@ export default async function (req) {
     console.log("capturePaypalOrder: captured", orderId, amount.currency_code, amount.value);
     return Response.json({ paid: true, order_id: orderId });
   } catch (error) {
-    console.log("capturePaypalOrder failed", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("capturePaypalOrder", error);
   }
 }

@@ -6,6 +6,7 @@ import {
   paypalAccessToken,
   paypalRequest,
 } from "../../shared/paypal.ts";
+import { serverError } from "../../shared/apiError.ts";
 
 export default async function (req) {
   try {
@@ -43,7 +44,6 @@ export default async function (req) {
     console.log("createPaypalOrder: created", created.payload.id, PAYPAL_CURRENCY, PAYPAL_AMOUNT);
     return Response.json({ id: created.payload.id });
   } catch (error) {
-    console.log("createPaypalOrder failed", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("createPaypalOrder", error);
   }
 }

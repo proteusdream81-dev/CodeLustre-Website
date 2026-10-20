@@ -1,5 +1,6 @@
 import { secrets } from "base44:runtime";
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
+import { serverError } from "../../shared/apiError.ts";
 
 const STRIPE_API = "https://api.stripe.com/v1";
 
@@ -22,7 +23,9 @@ export default async function (req) {
     });
     const session = await response.json();
     if (!response.ok) {
-      return Response.json({ error: session?.error?.message || "Order not found." }, { status: 404 });
+      // Stripe's own text names the session and its failure mode, so log it and reply plainly.
+      console.log("getOrderSession: Stripe lookup failed", response.status, session?.error?.message);
+      return Response.json({ error: "Order not found." }, { status: 404 });
     }
 
     const paid = session.payment_status === "paid";
@@ -65,6 +68,6 @@ export default async function (req) {
       items,
     });
   } catch (error) {
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("getOrderSession", error);
   }
 }

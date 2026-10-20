@@ -1,4 +1,5 @@
 import { paypalConfig } from "../../shared/paypal.ts";
+import { serverError } from "../../shared/apiError.ts";
 
 // The PayPal client ID is public by design (the PayPal script loads it in the browser), so
 // leaking it is harmless. Its only real cost is being called from anywhere, so answer only
@@ -38,7 +39,6 @@ export default async function (req) {
       client_id: config.configured ? config.clientId : null,
     });
   } catch (error) {
-    console.log("getPaypalClientId failed", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("getPaypalClientId", error);
   }
 }

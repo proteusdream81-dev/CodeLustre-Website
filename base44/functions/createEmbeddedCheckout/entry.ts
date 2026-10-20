@@ -1,4 +1,5 @@
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
+import { serverError } from "../../shared/apiError.ts";
 
 // Fixed test amount for the embedded card checkout: A$49.00
 const TEST_PAYMENT = {
@@ -32,7 +33,6 @@ export default async function (req) {
       embedded: checkout.embedded,
     });
   } catch (error) {
-    console.log("createEmbeddedCheckout failed", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("createEmbeddedCheckout", error);
   }
 }

@@ -1,5 +1,6 @@
 import { secrets } from "base44:runtime";
 import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
+import { serverError } from "../../shared/apiError.ts";
 
 const STRIPE_API = "https://api.stripe.com/v1/checkout/sessions";
 
@@ -134,10 +135,8 @@ export default async function (req) {
     const attempt = await createSession(buildParams());
 
     if (!attempt.ok) {
-      return Response.json(
-        { error: attempt.payload?.error?.message || "Stripe could not start the payment." },
-        { status: 502 }
-      );
+      // The underlying Stripe error is already logged above; callers get a plain message.
+      return Response.json({ error: "Stripe could not start the payment." }, { status: 502 });
     }
 
     const session = attempt.payload;
@@ -152,7 +151,6 @@ export default async function (req) {
 
     return Response.json({ url: session.url, id: session.id });
   } catch (error) {
-    console.log("createCheckoutSession failed", error.message);
-    return Response.json({ error: error.message }, { status: 500 });
+    return serverError("createCheckoutSession", error);
   }
 }
