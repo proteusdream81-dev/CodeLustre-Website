@@ -3,6 +3,33 @@ import { createClientFromRequest } from "npm:@base44/sdk@0.8.54";
 
 const STRIPE_API = "https://api.stripe.com/v1/checkout/sessions";
 
+// Buyers must only ever be returned to this app. The X-Base44-App-Url header is normally
+// set by the platform, but this endpoint is anonymous-reachable, so an unvalidated value
+// would let a caller aim Stripe's success/cancel URLs at any site (open redirect).
+const CANONICAL_ORIGIN = "https://loutish-launch-pad-craft.base44.app";
+const ALLOWED_ORIGINS = new Set([
+  CANONICAL_ORIGIN,
+  "https://codelustre.com",
+  "https://www.codelustre.com",
+]);
+
+function resolveOrigin(raw: string): string {
+  let url: URL;
+  try {
+    url = new URL(raw);
+  } catch {
+    return CANONICAL_ORIGIN;
+  }
+  const host = url.hostname.toLowerCase();
+  const platformHost = host === "base44.app" || host.endsWith(".base44.app");
+  const localHost = host === "localhost" || host === "127.0.0.1";
+  if (ALLOWED_ORIGINS.has(url.origin)) return url.origin;
+  // Platform-hosted origins (published app, builder preview) are ours; so is local dev.
+  if (url.protocol === "https:" && platformHost) return url.origin;
+  if (localHost) return url.origin;
+  return CANONICAL_ORIGIN;
+}
+
 export default async function (req) {
   try {
     const stripeKey = secrets.get("STRIPE_SECRET_KEY");
@@ -16,7 +43,7 @@ export default async function (req) {
       console.log("createCheckoutSession: missing X-Base44-App-Url header");
       return Response.json({ error: "Checkout is unavailable from this address." }, { status: 400 });
     }
-    const origin = appOrigin.replace(/\/$/, "");
+    const origin = resolveOrigin(appOrigin);
 
     const body = await req.json().catch(() => ({}));
     const requested = Array.isArray(body.items) ? body.items.slice(0, 20) : [];
@@ -64,7 +91,7 @@ export default async function (req) {
       const params = new URLSearchParams();
       params.append("mode", "payment");
       params.append("success_url", `${origin}/order/success?session_id={CHECKOUT_SESSION_ID}`);
-      params.append("cancel_url", `${origin}/checkout?canceled=1`);
+      params.append("cancel_url", `${origin}/checkout/cart?canceled=1`);
       params.append("shipping_address_collection[allowed_countries][0]", "AU");
       params.append("billing_address_collection", "auto");
       params.append("metadata[base44_app_id]", secrets.get("BASE44_APP_ID") || "");

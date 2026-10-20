@@ -54,13 +54,14 @@ export default async function (req) {
           amount: line.amount_total || 0,
         }));
 
+    // A session id is the only thing identifying the caller, and it can travel in browser
+    // history, logs or shared links. Return only what the confirmation page displays —
+    // never the buyer's name, email or other personal details.
     return Response.json({
       paid,
       status: session.payment_status,
       amount_total: session.amount_total ?? 0,
       currency: session.currency || "aud",
-      email: session.customer_details?.email || order?.customer_email || "",
-      name: session.customer_details?.name || order?.shipping_name || "",
       items,
     });
   } catch (error) {
