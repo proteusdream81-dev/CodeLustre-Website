@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Check } from "lucide-react";
 import { Link } from "react-router-dom";
 import ShopProduct from "@/components/site/ShopProduct";
+import ShopProductPlaceholder from "@/components/site/ShopProductPlaceholder";
 import { base44 } from "@/api/base44Client";
 
 const included = [
@@ -12,54 +13,29 @@ const included = [
 ];
 
 export default function Shop() {
-  const [bootDrives, setBootDrives] = useState([]);
   const [accessories, setAccessories] = useState([]);
+  const [drivesInStock, setDrivesInStock] = useState([]);
+  const [drivesRestocking, setDrivesRestocking] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
-      base44.entities.Product.filter({ active: true, category: "boot-drive" }, { sort: "sort_order", limit: 50 }),
       base44.entities.Product.filter({ active: true, category: "accessory" }, { sort: "sort_order", limit: 50 }),
+      base44.entities.Product.filter({ active: true, category: "boot-drive" }, { sort: "sort_order", limit: 50 }),
+      base44.entities.Product.filter({ active: false, category: "boot-drive" }, { sort: "sort_order", limit: 50 }),
     ])
-      .then(([drives, extras]) => {
-        setBootDrives(drives.items);
+      .then(([extras, inStock, restocking]) => {
         setAccessories(extras.items);
+        setDrivesInStock(inStock.items);
+        setDrivesRestocking(restocking.items);
       })
       .finally(() => setLoading(false));
   }, []);
 
+  const driveCount = drivesInStock.length + drivesRestocking.length;
+
   return (
     <>
-      <section className="border-t border-border">
-        <div className="mx-auto max-w-7xl px-6 py-24">
-          <div className="max-w-2xl mb-16">
-            <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-4">[ Shop ]</div>
-            <h2 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight">Linux USB boot drives.</h2>
-            <p className="mt-5 text-muted-foreground leading-relaxed">
-              Prepared, verified and burn-tested in the studio. Pick a drive, or tell us the image you need and we&apos;ll build a run to suit your team.
-            </p>
-          </div>
-
-          {loading ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[0, 1, 2].map((key) => (
-                <div key={key} className="h-96 rounded-lg border border-border bg-card/60 animate-pulse" />
-              ))}
-            </div>
-          ) : bootDrives.length === 0 ? (
-            <div className="rounded-lg border border-border bg-card/40 px-6 py-16 text-center">
-              <p className="text-sm text-muted-foreground">New stock is being prepared. Check back shortly.</p>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {bootDrives.map((product) => (
-                <ShopProduct key={product.id} product={product} />
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
-
       {(loading || accessories.length > 0) && (
         <section className="border-t border-border">
           <div className="mx-auto max-w-7xl px-6 py-24">
@@ -81,6 +57,37 @@ export default function Shop() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {accessories.map((product) => (
                   <ShopProduct key={product.id} product={product} />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
+      )}
+
+      {(loading || driveCount > 0) && (
+        <section className="border-t border-border bg-card/30">
+          <div className="mx-auto max-w-7xl px-6 py-24">
+            <div className="max-w-2xl mb-16">
+              <div className="font-mono text-xs uppercase tracking-[0.25em] text-primary mb-4">[ Boot drives ]</div>
+              <h2 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight">Linux USB boot drives.</h2>
+              <p className="mt-5 text-muted-foreground leading-relaxed">
+                Prepared, verified and burn-tested in the studio. Pick a drive, or tell us the image you need and we&apos;ll build a run to suit your team.
+              </p>
+            </div>
+
+            {loading ? (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[0, 1, 2].map((key) => (
+                  <div key={key} className="h-96 rounded-lg border border-border bg-card/60 animate-pulse" />
+                ))}
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {drivesInStock.map((product) => (
+                  <ShopProduct key={product.id} product={product} />
+                ))}
+                {drivesRestocking.map((product) => (
+                  <ShopProductPlaceholder key={product.id} product={product} />
                 ))}
               </div>
             )}
