@@ -17,9 +17,217 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:image" content="https://media.base44.com/images/public/6acc0ce0e34a89cc34457777/1db36f671_codelustre-og-1200x630.png" />
     <title>CodeLustre | Web Design &amp; App Development in NSW, Australia</title>
+    <style>
+      /* Styles for the no-JavaScript fallback only. React replaces #root on mount,
+         so these rules can never reach the JavaScript app. */
+      .nf {
+        background: #080808;
+        color: #f1f1f1;
+        font-family: "Inter", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+      .nf * { box-sizing: border-box; }
+      .nf-wrap { max-width: 72rem; margin: 0 auto; padding: 0 24px; }
+      .nf a { color: inherit; text-decoration: none; }
+      .nf a:focus-visible { outline: 2px solid #c8ff00; outline-offset: 3px; }
+      .nf-head { border-bottom: 1px solid #242424; }
+      .nf-head .nf-wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; padding-top: 18px; padding-bottom: 18px; }
+      .nf-brand { font-family: "Space Grotesk", system-ui, sans-serif; font-weight: 700; font-size: 1.125rem; letter-spacing: -0.01em; }
+      .nf-nav { display: flex; flex-wrap: wrap; gap: 20px; font-size: 0.875rem; color: #a0a0a0; }
+      .nf-nav a:hover { color: #f1f1f1; }
+      .nf section { border-bottom: 1px solid #1a1a1a; }
+      .nf section:last-of-type { border-bottom: 0; }
+      .nf-block { padding-top: 72px; padding-bottom: 72px; }
+      .nf-eyebrow { margin: 0 0 20px; font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase; color: #c8ff00; }
+      .nf h1, .nf h2, .nf h3 { font-family: "Space Grotesk", system-ui, sans-serif; letter-spacing: -0.02em; line-height: 1.1; margin: 0; }
+      .nf h1 { font-size: clamp(2.25rem, 6vw, 4rem); max-width: 46rem; }
+      .nf h1 span { color: #c8ff00; }
+      .nf h2 { font-size: clamp(1.75rem, 4vw, 2.75rem); }
+      .nf h3 { font-size: 1.25rem; }
+      .nf-lead { margin: 28px 0 0; max-width: 34rem; font-size: 1.0625rem; color: #a0a0a0; }
+      .nf-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 36px; }
+      .nf-btn { display: inline-block; padding: 14px 24px; border-radius: 6px; background: #c8ff00; color: #080808; font-weight: 600; font-size: 0.9375rem; }
+      .nf-btn:hover { opacity: 0.9; }
+      .nf-btn-ghost { background: transparent; color: #f1f1f1; border: 1px solid #2c2c2c; }
+      .nf-btn-ghost:hover { border-color: #3b7dd8; color: #7fb3f5; opacity: 1; }
+      .nf-grid { display: grid; gap: 20px; margin-top: 48px; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); }
+      .nf-card { border: 1px solid #242424; border-radius: 8px; background: #0e0e0e; padding: 28px; }
+      .nf-card .nf-eyebrow { font-size: 0.65rem; margin-bottom: 16px; color: #7fb3f5; }
+      .nf-card p { margin: 12px 0 0; color: #a0a0a0; font-size: 0.9375rem; }
+      .nf-list { margin: 20px 0 0; padding: 0; list-style: none; }
+      .nf-list li { padding: 16px 0; border-top: 1px solid #1f1f1f; }
+      .nf-list li:first-child { border-top: 0; padding-top: 0; }
+      .nf-list strong { font-family: "Space Grotesk", system-ui, sans-serif; font-size: 1.0625rem; }
+      .nf-list span { display: block; color: #a0a0a0; font-size: 0.9375rem; margin-top: 6px; }
+      .nf-form { display: grid; gap: 16px; margin-top: 32px; max-width: 34rem; }
+      .nf-row { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr)); }
+      .nf-field { display: grid; gap: 8px; }
+      .nf-field label { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: #a0a0a0; }
+      .nf-field input, .nf-field select, .nf-field textarea { width: 100%; padding: 12px 14px; border: 1px solid #2c2c2c; border-radius: 6px; background: #080808; color: #f1f1f1; font: inherit; font-size: 0.9375rem; }
+      .nf-field textarea { resize: vertical; }
+      .nf-field input:focus, .nf-field select:focus, .nf-field textarea:focus { outline: none; border-color: #7fb3f5; }
+      .nf-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+      .nf-form button { justify-self: start; padding: 14px 26px; border: 0; border-radius: 6px; background: #c8ff00; color: #080808; font: inherit; font-weight: 600; font-size: 0.9375rem; cursor: pointer; }
+      .nf-form button:hover { opacity: 0.9; }
+      .nf-note { margin: 16px 0 0; font-size: 0.875rem; color: #7a7a7a; }
+      .nf-foot { border-top: 1px solid #242424; padding: 40px 24px; font-size: 0.8125rem; color: #7a7a7a; }
+      .nf-foot .nf-wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+      .nf-foot nav { display: flex; flex-wrap: wrap; gap: 16px; }
+      .nf-foot a:hover { color: #f1f1f1; }
+      @media (max-width: 640px) { .nf-block { padding-top: 52px; padding-bottom: 52px; } }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Static, fully styled fallback so the site is readable and navigable with
+         JavaScript disabled. React clears #root the moment it mounts. -->
+    <div id="root">
+      <div class="nf">
+        <header class="nf-head">
+          <div class="nf-wrap">
+            <a class="nf-brand" href="#top">CodeLustre</a>
+            <nav class="nf-nav" aria-label="Main">
+              <a href="#services">Services</a>
+              <a href="#work">Work</a>
+              <a href="#shop">Shop</a>
+              <a href="#contact">Contact</a>
+            </nav>
+          </div>
+        </header>
+
+        <main>
+          <section id="top">
+            <div class="nf-wrap nf-block">
+              <p class="nf-eyebrow">[ Web design &amp; app development studio &middot; NSW, Australia ]</p>
+              <h1>We design websites and build apps that <span>launch brands.</span></h1>
+              <p class="nf-lead">
+                CodeLustre is a digital studio crafting high-performance websites and custom apps for ambitious teams across NSW and Australia, from first wireframe to launch and beyond.
+              </p>
+              <p class="nf-actions">
+                <a class="nf-btn" href="#contact">Start a project</a>
+                <a class="nf-btn nf-btn-ghost" href="#work">See our work</a>
+              </p>
+            </div>
+          </section>
+
+          <section id="services">
+            <div class="nf-wrap nf-block">
+              <p class="nf-eyebrow">[ What we do ]</p>
+              <h2>Five services, one studio.</h2>
+              <p class="nf-lead">Websites, apps and online stores, the Linux gear that runs them, and the support that keeps it all going. One team, end to end.</p>
+              <div class="nf-grid">
+                <article class="nf-card">
+                  <p class="nf-eyebrow">01 / Web design &amp; development</p>
+                  <h3>Web Design &amp; Development</h3>
+                  <p>Fast, clean custom websites for small business and community organisations. Recent work includes Greyhound Rehoming, a national dog adoption platform.</p>
+                </article>
+                <article class="nf-card">
+                  <p class="nf-eyebrow">02 / App development</p>
+                  <h3>App Development</h3>
+                  <p>Web and Android apps built to spec, from concept to launch. Current flagship: ShelfLife, a book tracking and social reading app.</p>
+                </article>
+                <article class="nf-card">
+                  <p class="nf-eyebrow">03 / Online stores</p>
+                  <h3>Online Stores</h3>
+                  <p>Full shop builds, product sourcing, pricing and margin setup, and marketplace integration (eBay and beyond).</p>
+                </article>
+                <article class="nf-card">
+                  <p class="nf-eyebrow">04 / Linux boot drives &amp; tech gear</p>
+                  <h3>Linux Boot Drives &amp; Tech Gear</h3>
+                  <p>Hand-crafted Linux USB boot drives plus curated tech accessories, shipping Australia-wide from our online shop.</p>
+                </article>
+                <article class="nf-card">
+                  <p class="nf-eyebrow">05 / Ongoing support</p>
+                  <h3>Ongoing Support</h3>
+                  <p>Updates, backups and fixes for anything we build.</p>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section id="work">
+            <div class="nf-wrap nf-block">
+              <p class="nf-eyebrow">[ Selected work ]</p>
+              <h2>Built, launched, looked after.</h2>
+              <ul class="nf-list">
+                <li>
+                  <strong>Greyhound Rehoming</strong>
+                  <span>A national dog adoption platform connecting greyhounds with homes across Australia.</span>
+                </li>
+                <li>
+                  <strong>ShelfLife</strong>
+                  <span>A book tracking and social reading app for readers who like to keep a record.</span>
+                </li>
+              </ul>
+              <p class="nf-note">Open the full Work page with JavaScript enabled to see the projects in detail.</p>
+            </div>
+          </section>
+
+          <section id="shop">
+            <div class="nf-wrap nf-block">
+              <p class="nf-eyebrow">[ Shop ]</p>
+              <h2>Linux USB boot drives &amp; tech gear.</h2>
+              <p class="nf-lead">
+                Boot drives prepared, verified and burn-tested in the studio, plus curated tech accessories &mdash; shipping Australia-wide. Bulk and fleet orders welcome.
+              </p>
+              <p class="nf-note">The shop browse and checkout pages need JavaScript. Tell us what you need below and we&apos;ll sort it out.</p>
+              <p class="nf-actions"><a class="nf-btn" href="#contact">Enquire about a drive</a></p>
+            </div>
+          </section>
+
+          <section id="contact">
+            <div class="nf-wrap nf-block">
+              <p class="nf-eyebrow">[ Start a project ]</p>
+              <h2>Let&apos;s build something that launches.</h2>
+              <p class="nf-lead">Tell us a little about your project. We&apos;ll get back to you within one business day to talk scope, timeline, and next steps.</p>
+              <form class="nf-form" method="post" action="https://loutish-launch-pad-craft.base44.app/functions/submitLead">
+                <div class="nf-row">
+                  <div class="nf-field">
+                    <label for="nf-name">Name</label>
+                    <input id="nf-name" name="name" type="text" required maxlength="120" autocomplete="name" placeholder="Your name" />
+                  </div>
+                  <div class="nf-field">
+                    <label for="nf-email">Email</label>
+                    <input id="nf-email" name="email" type="email" required maxlength="200" autocomplete="email" placeholder="you@company.com" />
+                  </div>
+                </div>
+                <div class="nf-field">
+                  <label for="nf-company">Company (optional)</label>
+                  <input id="nf-company" name="company" type="text" maxlength="160" autocomplete="organization" placeholder="Company name" />
+                </div>
+                <div class="nf-field">
+                  <label for="nf-type">Project type</label>
+                  <select id="nf-type" name="project_type">
+                    <option value="web">Web</option>
+                    <option value="app">App</option>
+                    <option value="both" selected>Both</option>
+                  </select>
+                </div>
+                <div class="nf-field">
+                  <label for="nf-message">Project details</label>
+                  <textarea id="nf-message" name="message" rows="4" maxlength="4000" placeholder="What are you building, and what does success look like?"></textarea>
+                </div>
+                <input class="nf-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+                <button type="submit">Send brief</button>
+              </form>
+            </div>
+          </section>
+        </main>
+
+        <footer class="nf-foot">
+          <div class="nf-wrap">
+            <nav aria-label="Footer">
+              <a href="#top">Home</a>
+              <a href="#services">Services</a>
+              <a href="#work">Work</a>
+              <a href="#shop">Shop</a>
+              <a href="#contact">Contact</a>
+            </nav>
+            <span>&copy; 2026 CodeLustre &middot; codelustre.com</span>
+          </div>
+        </footer>
+      </div>
+    </div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
