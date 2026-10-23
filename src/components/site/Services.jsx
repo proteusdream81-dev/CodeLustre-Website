@@ -7,7 +7,7 @@ const offerings = [
   {
     tag: "01 / Web design & development",
     title: "Web Design & Development",
-    desc: "Fast, clean custom websites for small business and community organisations. Recent work includes Greyhound Rehoming, a national dog adoption platform.",
+    desc: "Fast, clean custom websites for small business and community organisations, built by hand and easy for your team to update.",
     accent: "lime",
   },
   {

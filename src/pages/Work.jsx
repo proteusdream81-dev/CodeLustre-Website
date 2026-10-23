@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Bell, Facebook } from "lucide-react";
+import { ArrowRight, Bell } from "lucide-react";
 import ProjectSection from "@/components/site/work/ProjectSection";
-import GreyhoundVisual from "@/components/site/work/GreyhoundVisual";
 import ShelfLifeVisual from "@/components/site/work/ShelfLifeVisual";
 import LindenVisual from "@/components/site/work/LindenVisual";
 
@@ -27,41 +26,6 @@ export default function Work() {
 
       <ProjectSection
         number="01"
-        status="Live"
-        statusTone="primary"
-        eyebrow="Case study"
-        title="Greyhound Rehoming"
-        description="The flagship project: a complete rehoming platform with photo profiles, an adoption workflow and owner-managed content, designed, built and supported end to end by Code Lustre."
-        facts={[
-          "greyhoundrehoming.com.au",
-          "100% in-house build, zero templates",
-          "Full adoption and enquiry workflow",
-        ]}
-        actions={
-          <>
-            <a
-              href="https://greyhoundrehoming.com.au"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={primaryButton}
-            >
-              Visit the live site <ArrowRight className="w-4 h-4" />
-            </a>
-            <a
-              href="https://www.facebook.com/GreyhoundRehomingNSW/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={ghostButton}
-            >
-              Follow on Facebook <Facebook className="w-4 h-4" />
-            </a>
-          </>
-        }
-        visual={<GreyhoundVisual />}
-      />
-
-      <ProjectSection
-        number="02"
         status="Coming soon"
         statusTone="primary"
         eyebrow="Our next launch"
@@ -81,7 +45,7 @@ export default function Work() {
       />
 
       <ProjectSection
-        number="03"
+        number="02"
         status="In development"
         eyebrow="Product build"
         title="Linden"

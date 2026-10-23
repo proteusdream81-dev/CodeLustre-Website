@@ -15,7 +15,7 @@ const teasers = [
     to: "/work",
     tag: "02 / Work",
     title: "Selected work",
-    desc: "Greyhound Rehoming and ShelfLife, designed, built and launched by Code Lustre.",
+    desc: "ShelfLife, designed, built and launched by Code Lustre.",
     accent: "hover:border-chart-2/40",
     tagClass: "text-chart-2",
     bar: "from-chart-2/70",
