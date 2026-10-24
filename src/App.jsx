@@ -10,6 +10,7 @@ import ScrollToTop from './components/ScrollToTop';
 import SiteLayout from '@/components/site/SiteLayout';
 import Home from './pages/Home';
 import Services from './pages/Services';
+import CarePlans from './pages/CarePlans';
 import Work from './pages/Work';
 import Shop from './pages/Shop';
 import About from './pages/About';
@@ -19,7 +20,7 @@ import Checkout from './pages/Checkout';
 import OrderSuccess from './pages/OrderSuccess';
 
 // Marketing pages anyone can view without signing in
-const PUBLIC_PATHS = ['/', '/services', '/work', '/shop', '/about', '/contact', '/cart', '/checkout/cart', '/order/success'];
+const PUBLIC_PATHS = ['/', '/services', '/care-plans', '/work', '/shop', '/about', '/contact', '/cart', '/checkout/cart', '/order/success'];
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -56,6 +57,7 @@ const AuthenticatedApp = () => {
       <Route element={<SiteLayout />}>
         <Route path="/" element={<Home />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/care-plans" element={<CarePlans />} />
         <Route path="/work" element={<Work />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/about" element={<About />} />

@@ -8,6 +8,7 @@ import { useCart } from "@/components/shop/CartProvider";
 const links = [
   { label: "Home", to: "/" },
   { label: "Services", to: "/services" },
+  { label: "Care Plans", to: "/care-plans" },
   { label: "Work", to: "/work" },
   { label: "Shop", to: "/shop" },
   { label: "About", to: "/about" },
@@ -38,7 +39,7 @@ export default function Nav() {
           <Image src={BRAND_LOGO} alt="" fittingType="fit" className="w-6 h-6 rounded-sm" />
           <span>CodeLustre</span>
         </Link>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+        <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
           {links.map((l) => (
             <NavLink
               key={l.to}
