@@ -1,115 +1,70 @@
 import { Image } from "@/components/ui/image";
 
-const SERIF = '"Playfair Display", Georgia, serif';
-
 const LOGO_IMAGE =
   "https://base44.app/api/apps/6acb4bff5b2cf5faa0b3fd45/files/mp/public/6acb4bff5b2cf5faa0b3fd45/5d7f8f5e5_sl_logo_clean.png";
 
-// ShelfLife's own world: plum and amber live inside this showcase panel only.
 const books = [
-  { title: "Midnight Bloom", author: "A. Rowe", height: "h-32", from: "#ff4fa3", to: "#7a1f8f", band: "#ff8cc8", ink: "#ffe1f2" },
-  { title: "Salt & Static", author: "J. Okafor", height: "h-28", from: "#3aa0ff", to: "#173a8a", band: "#7cc4ff", ink: "#dcecff" },
-  {
-    title: "The Gilded Hour",
-    author: "M. Castellan",
-    height: "h-44",
-    from: "#ffd166",
-    to: "#a8650a",
-    band: "#fff0b8",
-    ink: "#3a2100",
-    featured: true,
-  },
-  { title: "Greenhouse Ghosts", author: "T. Lindqvist", height: "h-36", from: "#4fe08d", to: "#0d5c40", band: "#9df3c4", ink: "#ddfff0" },
-  { title: "Violet Hours", author: "R. Nakamura", height: "h-32", from: "#a97bff", to: "#3d1f8f", band: "#c9aaff", ink: "#efe4ff" },
-  { title: "Red Sky Rounds", author: "L. Bianchi", height: "h-40", from: "#ff6a5a", to: "#8a1414", band: "#ffa79b", ink: "#ffe3df" },
+  { title: "The Gilded Hour", author: "M. Castellan", cover: "linear-gradient(145deg, #f5c66a, #9c552c)", label: "FEATURED" },
+  { title: "Midnight Bloom", author: "A. Rowe", cover: "linear-gradient(145deg, #e879a8, #51204f)", label: "WANT TO READ" },
+  { title: "Salt & Static", author: "J. Okafor", cover: "linear-gradient(145deg, #6bb9dc, #183c70)", label: "READING" },
 ];
 
 export default function ShelfLifeVisual() {
   return (
-    <div
-      className="relative overflow-hidden rounded-lg border border-border"
-      style={{ backgroundImage: "linear-gradient(160deg, #451044 0%, #26082c 48%, #130313 100%)" }}
-    >
-      <div
-        className="pointer-events-none absolute -top-16 right-0 h-48 w-48 rounded-full"
-        style={{ background: "radial-gradient(circle, rgba(245,165,36,0.22), transparent 70%)" }}
-      />
-
-      <div className="relative p-4 sm:p-5">
-        <div className="flex flex-wrap items-center justify-between gap-3">
+    <div className="relative overflow-hidden rounded-lg border border-[#63375f] bg-[#1b0d22] shadow-[0_28px_90px_-42px_rgba(91,38,91,0.9)]">
+      <div className="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-[#f5a524]/15 blur-3xl" />
+      <div className="relative p-4 sm:p-6">
+        <div className="flex items-center justify-between gap-3 border-b border-white/10 pb-4">
           <div className="flex items-center gap-3">
-            <Image
-              src={LOGO_IMAGE}
-              alt="ShelfLife logo"
-              fittingType="fit"
-              className="h-[62px] w-[62px] rounded-[12px]"
-              style={{ boxShadow: "0 0 0 1px rgba(245,165,36,0.45), 0 0 26px -4px rgba(245,165,36,0.55)" }}
-            />
+            <Image src={LOGO_IMAGE} alt="ShelfLife logo" fittingType="fit" className="h-11 w-11 rounded-xl" />
             <div>
-              <div className="font-heading text-lg font-bold leading-none sm:text-xl" style={{ color: "#f5a524" }}>
-                ShelfLife
-              </div>
-              <div className="mt-1.5 font-mono text-[9px] uppercase tracking-[0.18em]" style={{ color: "#c79ad0" }}>
-                Your books. Beautifully shelved.
-              </div>
+              <div className="font-heading text-lg font-bold leading-none text-[#f5b84e]">ShelfLife</div>
+              <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#c6a6c9]">Your books. Beautifully shelved.</div>
             </div>
           </div>
-          <span
-            className="rounded-full px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em]"
-            style={{ backgroundColor: "#f5a524", color: "#2a0b2e" }}
-          >
-            Coming soon
-          </span>
+          <span className="rounded-full bg-[#f5a524] px-3 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[#27112b]">Coming soon</span>
         </div>
 
-        <div className="mt-5 flex items-end gap-1.5 sm:gap-2">
-          {books.map((book) => (
-            <div
-              key={book.title}
-              className={`relative ${book.height} min-w-0 flex-1 overflow-hidden rounded-[3px]`}
-              style={{
-                backgroundImage: `linear-gradient(150deg, ${book.from}, ${book.to})`,
-                boxShadow: book.featured
-                  ? "0 24px 40px -18px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,214,102,0.6)"
-                  : "0 18px 28px -18px rgba(0,0,0,0.75)",
-              }}
-            >
-              <span
-                className="pointer-events-none absolute inset-0"
-                style={{ backgroundImage: "linear-gradient(115deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 45%)" }}
-              />
-              <span
-                className="absolute inset-y-0 left-0 w-[3px]"
-                style={{ backgroundImage: "linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.08))" }}
-              />
-              <span className="absolute inset-y-0 right-0 w-px bg-black/25" />
-              <span className="absolute inset-x-0 top-0 h-1.5" style={{ backgroundColor: book.band }} />
-
-              <div className="mt-3 flex h-full flex-col justify-between p-1.5 pb-2 pr-1.5">
-                <span className="text-[7px] leading-[1.15] sm:text-[9px]" style={{ fontFamily: SERIF, color: book.ink }}>
-                  {book.title}
-                </span>
-                <span className="text-[6px] uppercase tracking-[0.14em] opacity-80 sm:text-[7px]" style={{ color: book.ink }}>
-                  {book.author}
-                </span>
-              </div>
+        <div className="mt-4 rounded-xl border border-white/10 bg-[#2b1832] p-4 sm:p-5">
+          <div className="flex items-end justify-between gap-3">
+            <div>
+              <div className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#c6a6c9]">Your reading life</div>
+              <div className="mt-1 font-heading text-2xl font-semibold text-white sm:text-3xl">A shelf of your own.</div>
             </div>
-          ))}
-        </div>
+            <div className="hidden rounded-lg border border-[#f5a524]/30 bg-[#f5a524]/10 px-3 py-2 text-right sm:block">
+              <div className="font-mono text-[9px] uppercase tracking-widest text-[#d8b7dc]">This year</div>
+              <div className="font-heading text-xl font-bold text-[#f5b84e]">24 books</div>
+            </div>
+          </div>
 
-        <div
-          className="h-3 rounded-sm"
-          style={{
-            backgroundImage: "linear-gradient(180deg, #6b2d56 0%, #3a1330 45%, #1c0818 100%)",
-            boxShadow: "0 16px 26px -14px rgba(0,0,0,0.85)",
-          }}
-        />
-        <div
-          className="mt-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.2em]"
-          style={{ color: "#c79ad0" }}
-        >
-          <span>Switch in minutes</span>
-          <span>{books.length} titles</span>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["My shelves", "Discover", "Friends", "Releases"].map((tab, index) => (
+              <span key={tab} className={`rounded-full px-3 py-1.5 font-mono text-[9px] uppercase tracking-wider ${index === 0 ? "bg-[#f5a524] text-[#27112b]" : "border border-white/10 text-[#d8c5da]"}`}>
+                {tab}
+              </span>
+            ))}
+          </div>
+
+          <div className="mt-5 grid grid-cols-3 gap-3">
+            {books.map((book) => (
+              <div key={book.title} className="min-w-0">
+                <div className="relative aspect-[3/4] overflow-hidden rounded-md p-2 shadow-lg sm:p-3" style={{ background: book.cover }}>
+                  <div className="absolute inset-1.5 rounded border border-white/20" />
+                  <div className="relative flex h-full flex-col justify-between">
+                    <span className="font-mono text-[6px] tracking-[0.14em] text-white/75 sm:text-[8px]">SHELFLIFE EDITION</span>
+                    <span className="font-heading text-[10px] font-bold leading-tight text-white sm:text-sm">{book.title}</span>
+                  </div>
+                </div>
+                <div className="mt-2 truncate font-heading text-[10px] font-semibold text-white sm:text-xs">{book.title}</div>
+                <div className="mt-0.5 truncate font-mono text-[8px] uppercase tracking-wider text-[#b99cbd]">{book.author}</div>
+                <div className="mt-1.5 truncate font-mono text-[7px] uppercase tracking-widest text-[#f5b84e]">{book.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="mt-3 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-[#c6a6c9]">
+          <span>Track · Share · Discover</span>
+          <span>Made for readers</span>
         </div>
       </div>
     </div>
