@@ -3,6 +3,7 @@ import { ArrowRight, Bell } from "lucide-react";
 import ProjectSection from "@/components/site/work/ProjectSection";
 import ShelfLifeVisual from "@/components/site/work/ShelfLifeVisual";
 import LindenVisual from "@/components/site/work/LindenVisual";
+import GreyhoundVisual from "@/components/site/work/GreyhoundVisual";
 
 const primaryButton =
   "inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-md bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-[0_0_45px_-10px_hsl(var(--primary))]";
@@ -61,6 +62,26 @@ export default function Work() {
           </Link>
         }
         visual={<LindenVisual />}
+      />
+
+      <ProjectSection
+        number="03"
+        status="Live"
+        statusTone="primary"
+        eyebrow="Website design & development"
+        title="Greyhound Re-Homing"
+        description="A welcoming online home for Greyhound Re-Homing, helping people discover greyhounds looking for a fresh start, learn about adoption and fostering, and connect with the organisation."
+        facts={[
+          "A clear path to discover dogs and learn about rehoming",
+          "Information for people interested in adopting or fostering",
+          "Designed to make support and enquiries easy to find",
+        ]}
+        actions={
+          <a href="https://greyhoundrehoming.com.au" target="_blank" rel="noreferrer" className={primaryButton}>
+            Visit the live website <ArrowRight className="w-4 h-4" />
+          </a>
+        }
+        visual={<GreyhoundVisual />}
       />
     </>
   );
