@@ -76,6 +76,15 @@ export default function Work() {
           "Information for people interested in adopting or fostering",
           "Designed to make support and enquiries easy to find",
         ]}
+        testimonial={{
+          paragraphs: [
+            "A huge thank you to CodeLustre.com for our new and improved website.",
+            "We've had a lot going on over the last few years and rehomings have been few and far between while we had some things going on. We've started to get back to what we love and to help us get going, Code Lustre has built us this new amazing website.",
+            "Code Lustre are a new website and app design business. Check them out at https://codelustre.com/",
+          ],
+          name: "Jodi",
+          role: "Owner, Greyhound Re-Homing",
+        }}
         actions={
           <a href="https://greyhoundrehoming.com.au" target="_blank" rel="noreferrer" className={primaryButton}>
             Visit the live website <ArrowRight className="w-4 h-4" />

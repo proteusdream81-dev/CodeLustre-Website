@@ -15,6 +15,7 @@ export default function ProjectSection({
   facts = [],
   actions,
   visual,
+  testimonial,
 }) {
   const tone = tones[statusTone];
 
@@ -52,6 +53,21 @@ export default function ProjectSection({
                     </li>
                   ))}
                 </ul>
+              )}
+
+              {testimonial && (
+                <figure className="mt-9 rounded-lg border border-border bg-card p-6 sm:p-7">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-primary">Client testimonial</div>
+                  <blockquote className="mt-4 space-y-3 text-sm leading-relaxed text-muted-foreground">
+                    {testimonial.paragraphs.map((paragraph) => (
+                      <p key={paragraph}>{paragraph}</p>
+                    ))}
+                  </blockquote>
+                  <figcaption className="mt-5 border-t border-border pt-4">
+                    <div className="font-heading font-semibold text-foreground">{testimonial.name}</div>
+                    <div className="mt-1 text-xs text-muted-foreground">{testimonial.role}</div>
+                  </figcaption>
+                </figure>
               )}
 
               {actions && <div className="mt-10 flex flex-wrap gap-4">{actions}</div>}
