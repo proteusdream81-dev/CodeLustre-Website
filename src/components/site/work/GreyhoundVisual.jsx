@@ -1,4 +1,6 @@
-const greyhoundPhoto = "https://images.unsplash.com/photo-1719228066880-2499eee8245c?auto=format&fit=crop&fm=jpg&q=85&w=1600";
+import { Image } from "@/components/ui/image";
+
+const greyhoundPhoto = "https://media.base44.com/images/public/6acc0ce0e34a89cc34457777/1b4cb705b_greyhound-rehoming-homepage.webp";
 
 export default function GreyhoundVisual() {
   return (
@@ -10,9 +12,10 @@ export default function GreyhoundVisual() {
       className="group block overflow-hidden rounded-lg border border-border bg-card shadow-[0_0_70px_-34px_hsl(var(--primary))]"
     >
       <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-        <img
+        <Image
           src={greyhoundPhoto}
-          alt="A gentle greyhound standing in a green garden"
+          alt="The Greyhound Re-Homing website homepage"
+          fittingType="fill"
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.035]"
           loading="lazy"
         />
