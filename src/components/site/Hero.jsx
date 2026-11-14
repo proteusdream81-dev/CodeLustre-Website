@@ -21,7 +21,7 @@ const buildLayers = [
 
 export default function Hero() {
   return (
-    <section id="top" className="relative isolate min-h-[calc(100svh-4rem)] overflow-hidden border-b border-border">
+    <section id="top" className="relative isolate min-h-0 overflow-hidden border-b border-border lg:min-h-[calc(100svh-4rem)]">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.16]"
         style={{
@@ -34,7 +34,7 @@ export default function Hero() {
       <div className="pointer-events-none absolute -top-48 left-[15%] h-[34rem] w-[34rem] rounded-full bg-primary/10 blur-[140px]" />
       <div className="pointer-events-none absolute -right-48 top-1/4 h-[34rem] w-[34rem] rounded-full bg-chart-2/10 blur-[150px]" />
 
-      <div className="relative mx-auto grid min-h-[calc(100svh-4rem)] max-w-7xl items-center gap-12 px-6 py-16 sm:py-20 lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:py-20">
+      <div className="relative mx-auto grid min-h-0 max-w-7xl items-start gap-12 px-6 py-12 sm:py-16 lg:min-h-[calc(100svh-4rem)] lg:items-center lg:grid-cols-[1.02fr_0.98fr] lg:gap-12 lg:py-20">
         <div className="max-w-3xl">
           <div className="mb-7 inline-flex items-center gap-3 rounded-full border border-border bg-card/70 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground shadow-lg shadow-black/10 backdrop-blur">
             <span className="relative flex h-2 w-2">
