@@ -101,3 +101,44 @@
     @apply bg-background text-foreground font-body antialiased;
   }
 }
+
+/* CodeLustre site polish: clearer focus, smoother navigation and restrained motion. */
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+  }
+
+  body {
+    min-width: 320px;
+  }
+
+  ::selection {
+    color: hsl(var(--foreground));
+    background: hsl(var(--primary) / 0.28);
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 3px;
+  }
+
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

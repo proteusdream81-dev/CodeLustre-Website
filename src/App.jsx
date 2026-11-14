@@ -25,9 +25,9 @@ const PUBLIC_PATHS = ['/', '/services', '/care-plans', '/work', '/shop', '/about
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
   const { pathname } = useLocation();
-  // The marketing site at "/" is public. Every other route belongs to the
-  // signed-in app area and keeps the login gate below.
-  const isPublicPage = PUBLIC_PATHS.includes(pathname);
+  const normalizedPath = pathname.length > 1 ? pathname.replace(/\/+$/, "") : pathname;
+  // Treat trailing-slash variants of public marketing routes as public too.
+  const isPublicPage = PUBLIC_PATHS.includes(normalizedPath);
 
   // Show loading spinner while checking app public settings or auth
   if (isLoadingPublicSettings || isLoadingAuth) {
