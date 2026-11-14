@@ -2,7 +2,6 @@ import {
   ArrowRight,
   ArrowUpRight,
   Code2,
-  Layers3,
   MonitorSmartphone,
   ShoppingBag,
   ShieldCheck,
