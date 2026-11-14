@@ -4,9 +4,9 @@ const LOGO_IMAGE =
   "https://base44.app/api/apps/6acb4bff5b2cf5faa0b3fd45/files/mp/public/6acb4bff5b2cf5faa0b3fd45/5d7f8f5e5_sl_logo_clean.png";
 
 const books = [
-  { title: "The Gilded Hour", author: "M. Castellan", cover: "linear-gradient(145deg, #f5c66a, #9c552c)", label: "FEATURED" },
-  { title: "Midnight Bloom", author: "A. Rowe", cover: "linear-gradient(145deg, #e879a8, #51204f)", label: "WANT TO READ" },
-  { title: "Salt & Static", author: "J. Okafor", cover: "linear-gradient(145deg, #6bb9dc, #183c70)", label: "READING" },
+  { title: "The Gilded Hour", author: "Sample title", cover: "linear-gradient(145deg, #f5c66a, #9c552c)", label: "FEATURED" },
+  { title: "Midnight Bloom", author: "Sample title", cover: "linear-gradient(145deg, #e879a8, #51204f)", label: "WANT TO READ" },
+  { title: "Salt & Static", author: "Sample title", cover: "linear-gradient(145deg, #6bb9dc, #183c70)", label: "READING" },
 ];
 
 export default function ShelfLifeVisual() {
@@ -22,7 +22,7 @@ export default function ShelfLifeVisual() {
               <div className="mt-1 font-mono text-[9px] uppercase tracking-[0.18em] text-[#c6a6c9]">Your books. Beautifully shelved.</div>
             </div>
           </div>
-          <span className="rounded-full bg-[#f5a524] px-3 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[#27112b]">Coming soon</span>
+          <span className="rounded-full bg-[#f5a524] px-3 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[#27112b]">Concept preview</span>
         </div>
 
         <div className="mt-4 rounded-xl border border-white/10 bg-[#2b1832] p-4 sm:p-5">
@@ -32,8 +32,8 @@ export default function ShelfLifeVisual() {
               <div className="mt-1 font-heading text-2xl font-semibold text-white sm:text-3xl">A shelf of your own.</div>
             </div>
             <div className="hidden rounded-lg border border-[#f5a524]/30 bg-[#f5a524]/10 px-3 py-2 text-right sm:block">
-              <div className="font-mono text-[9px] uppercase tracking-widest text-[#d8b7dc]">This year</div>
-              <div className="font-heading text-xl font-bold text-[#f5b84e]">24 books</div>
+              <div className="font-mono text-[9px] uppercase tracking-widest text-[#d8b7dc]">Interface</div>
+              <div className="font-heading text-base font-bold text-[#f5b84e]">Preview</div>
             </div>
           </div>
 
@@ -62,9 +62,9 @@ export default function ShelfLifeVisual() {
             ))}
           </div>
         </div>
-        <div className="mt-3 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.18em] text-[#c6a6c9]">
+        <div className="mt-3 flex items-center justify-between gap-3 font-mono text-[9px] uppercase tracking-[0.18em] text-[#c6a6c9]">
           <span>Track · Share · Discover</span>
-          <span>Made for readers</span>
+          <span>Illustrative sample data</span>
         </div>
       </div>
     </div>
