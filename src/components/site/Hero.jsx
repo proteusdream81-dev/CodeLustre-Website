@@ -86,7 +86,7 @@ export default function Hero() {
 
         <div className="relative mx-auto w-full max-w-[35rem] lg:ml-auto">
           <div className="pointer-events-none absolute -inset-7 rounded-[2rem] bg-gradient-to-br from-primary/15 via-transparent to-chart-2/20 blur-2xl" />
-          <div className="relative aspect-[5/4] overflow-hidden rounded-xl border border-white/10 bg-[#090b0b] shadow-[0_32px_100px_-42px_rgba(0,0,0,0.95)] sm:aspect-[4/5] lg:aspect-[4/5]">
+          <div className="relative aspect-[5/4] overflow-hidden rounded-xl border border-white/10 bg-[#090b0b] shadow-[0_32px_100px_-42px_rgba(0,0,0,0.95)] sm:aspect-[4/5] lg:aspect-[5/4]">
             <img
               src={heroImage}
               alt="Close-up of illuminated computer hardware and intricate electronic components"
